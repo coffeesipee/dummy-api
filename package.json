@@ -1,0 +1,14 @@
+{
+  "name": "elysia-dummy-api",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^1.4.2",
+    "@faker-js/faker": "^10.6.0",
+    "elysia": "^1.4.30"
+  }
+}
