@@ -1,9 +1,17 @@
+import { mkdirSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
 import { Database } from 'bun:sqlite'
 import { seedDatabase } from './seed'
 
 // SQLite database file. The location is configurable (e.g. a Coolify/Docker
 // persistent volume); defaults to the project directory.
-const db = new Database(process.env.DB_PATH ?? 'data.db')
+const dbPath = process.env.DB_PATH ?? 'data.db'
+
+// SQLite creates the file but never its parent directory, which is exactly
+// what happens when DB_PATH points into a freshly mounted volume folder.
+mkdirSync(dirname(resolve(dbPath)), { recursive: true })
+
+const db = new Database(dbPath)
 
 db.exec(`
   PRAGMA journal_mode = WAL;
